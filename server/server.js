@@ -26,28 +26,34 @@ exports = {
     //   }
     // });
 
-    fetch('http://115.110.226.234/raqmockapi/api/estaff/sendLog', { method: 'post', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }).then(r => {
-      console.log(r);
-    }).catch(error => {
-      console.log(error);
-    });
-
-    // var update_status = payload.data.changes.status;
-    // if (update_status) {
-    //   if (update_status.length > 1) {
-    //     if (update_status[0] != update_status[1]) {
-    //       console.log(update_status[0]);
-    //       console.log(update_status[1]);
     // client.messages.create('+919025720760', '+917358254162', 'Success: ' + JSON.stringify(payload.data.ticket.status_name)).then(function (res) {
     //   console.log(res);
     // });
-    //     }
-    //   }
-    // } else {
-    //   client.messages.create('+919025720760', '+917358254162', 'Failed: ' + JSON.stringify(payload.data.changes)).then(function (res) {
-    //     console.log(res);
-    //   });
-    // }
+
+    if (payload) {
+      if (payload.data) {
+        if (payload.data.ticket) {
+          if (payload.data.ticket.changes) {
+
+            var update_status = payload.data.ticket.changes.status;
+            if (update_status) {
+              if (update_status.length > 1) {
+                if (update_status[0] != update_status[1]) {
+                  console.log(update_status[0]);
+                  console.log(update_status[1]);
+                  fetch('http://115.110.226.234/raqmockapi/api/estaff/sendLog', { method: 'post', body: JSON.stringify(payload), headers: { 'Content-Type': 'application/json' } }).then(r => {
+                    console.log(r);
+                  }).catch(error => {
+                    console.log(error);
+                  });
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
 
   }
 }
